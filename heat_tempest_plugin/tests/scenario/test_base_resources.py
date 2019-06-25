@@ -15,6 +15,7 @@ from tempest.lib import decorators
 
 from heat_tempest_plugin.common import test
 from heat_tempest_plugin.tests.scenario import scenario_base
+import os
 
 
 class BasicResourcesTest(scenario_base.ScenarioTestsBase):
@@ -61,9 +62,10 @@ class BasicResourcesTest(scenario_base.ScenarioTestsBase):
             'private_net_name': self.private_net_name,
             'availability_zone': self.conf.availability_zone
         }
-
+        boot_config_env = os.path.join(os.path.dirname(__file__),
+                                       self.conf.boot_config_env)
         env_files, env = template_utils.process_environment_and_files(
-            self.conf.boot_config_env)
+            boot_config_env)
 
         # Launch stack
         self.stack_identifier = self.launch_stack(
