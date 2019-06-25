@@ -106,8 +106,7 @@ HeatGroup = [
                default='public',
                help="Visible floating network name "),
     cfg.StrOpt('boot_config_env',
-               default=('heat_tempest_plugin/tests/scenario/templates'
-                        '/boot_config_none_env.yaml'),
+               default=('templates/boot_config_none_env.yaml'),
                help="Path to environment file which defines the "
                     "resource type Heat::InstallConfigAgent. Needs to "
                     "be appropriate for the image_ref."),
