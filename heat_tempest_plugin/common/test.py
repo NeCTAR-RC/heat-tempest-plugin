@@ -29,7 +29,9 @@ import testtools
 from heat_tempest_plugin.common import exceptions
 from heat_tempest_plugin.common import remote_client
 from heat_tempest_plugin.services import clients
+from tempest.common.credentials_factory import get_preprov_provider_params
 from tempest import config
+from tempest.lib.common import preprov_creds
 
 LOG = logging.getLogger(__name__)
 _LOG_FORMAT = "%(levelname)8s [%(name)s] %(message)s"
@@ -171,6 +173,25 @@ class HeatIntegrationTest(testtools.testcase.WithAttributes,
         super(HeatIntegrationTest, self).setUp()
 
         self.conf = config.CONF.heat_plugin
+        identity_version = 'v3' if config.CONF.identity_feature_enabled.api_v3\
+            else 'v2'
+
+        if config.CONF.auth.test_accounts_file:
+            accounts = preprov_creds.PreProvisionedCredentialProvider(
+                name='heat',
+                **get_preprov_provider_params(identity_version))
+
+            for opts in accounts.hash_dict['creds'].values():
+                for key, value in opts.items():
+                    self.conf._conf.set_override(
+                        key, value, group='heat_plugin')
+
+            if identity_version == 'v3':
+                auth_url = config.CONF.identity.uri_v3.rstrip('/')
+            else:
+                auth_url = config.CONF.identity.uri.rstrip('/')
+            self.conf._conf.set_override('auth_url', auth_url,
+                                         group='heat_plugin')
 
         self.assertIsNotNone(self.conf.auth_url,
                              'No auth_url configured')
