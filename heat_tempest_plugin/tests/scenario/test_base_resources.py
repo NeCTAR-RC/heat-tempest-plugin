@@ -16,7 +16,6 @@ from tempest.lib import decorators
 from heat_tempest_plugin.common import test
 from heat_tempest_plugin.tests.scenario import scenario_base
 
-
 class BasicResourcesTest(scenario_base.ScenarioTestsBase):
 
     def setUp(self):
@@ -51,14 +50,14 @@ class BasicResourcesTest(scenario_base.ScenarioTestsBase):
             4. Check that stack was created.
             5. Check stack outputs.
         """
-
         self.private_net_name = test.rand_name('heat-net')
         parameters = {
             'key_name': test.rand_name('heat-key'),
             'flavor': self.conf.instance_type,
             'image': self.conf.image_ref,
             'vol_size': self.conf.volume_size,
-            'private_net_name': self.private_net_name
+            'private_net_name': self.private_net_name,
+            'availability_zone': self.conf.availability_zone
         }
 
         env_files, env = template_utils.process_environment_and_files(
