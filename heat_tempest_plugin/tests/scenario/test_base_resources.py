@@ -61,7 +61,6 @@ class BasicResourcesTest(scenario_base.ScenarioTestsBase):
             'private_net_name': self.private_net_name,
             'availability_zone': self.conf.availability_zone
         }
-
         env_files, env = template_utils.process_environment_and_files(
             self.conf.boot_config_env)
 
