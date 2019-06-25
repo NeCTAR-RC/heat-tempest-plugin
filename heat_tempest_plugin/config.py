@@ -162,6 +162,9 @@ HeatGroup = [
     cfg.StrOpt('credential_secret_id',
                help="Barbican secret id which storing cloud credential in "
                "remote site."),
+    cfg.StrOpt('availability_zone',
+               default='nova',
+               help="Name of availability zone used by instance and volume"),
 ]
 
 heat_features_group = cfg.OptGroup(
