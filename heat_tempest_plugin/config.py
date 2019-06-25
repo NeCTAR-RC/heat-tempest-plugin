@@ -172,6 +172,9 @@ HeatGroup = [
                 help="Set this to True if VM images used for tests "
                      "can not verify a (self-signed) SSL certificate "
                      "of public Heat endpoint."),
+    cfg.StrOpt('availability_zone',
+               default='nova',
+               help="Name of availability zone used by instance and volume"),
 ]
 
 heat_features_group = cfg.OptGroup(

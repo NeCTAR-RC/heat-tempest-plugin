@@ -58,7 +58,8 @@ class BasicResourcesTest(scenario_base.ScenarioTestsBase):
             'flavor': self.conf.instance_type,
             'image': self.conf.image_ref,
             'vol_size': self.conf.volume_size,
-            'private_net_name': self.private_net_name
+            'private_net_name': self.private_net_name,
+            'availability_zone': self.conf.availability_zone
         }
 
         env_files, env = template_utils.process_environment_and_files(
