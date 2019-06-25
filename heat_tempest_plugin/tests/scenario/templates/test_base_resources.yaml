@@ -47,6 +47,10 @@ parameters:
   echo_foo:
     default: fooooo
     type: string
+  availability_zone:
+    default: nova
+    type: string
+    description: Name of the availability_zone used for nova instance and cinder volume
 
 resources:
   private_net:
@@ -82,6 +86,7 @@ resources:
       key_name: { get_resource: key }
       image: { get_param: image }
       flavor: { get_param: flavor }
+      availability_zone: { get_param: availability_zone }
       networks:
         - port: { get_resource: server_port }
       user_data:
@@ -96,6 +101,7 @@ resources:
     type: OS::Cinder::Volume
     properties:
       size: { get_param: vol_size }
+      availability_zone: { get_param: availability_zone }
 
   vol_att:
     type: OS::Cinder::VolumeAttachment
