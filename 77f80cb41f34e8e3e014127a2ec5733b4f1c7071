@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "85f6a4ff_e19914b8",
+        "filename": "heat_tempest_plugin/common/test.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000104
+      },
+      "writtenOn": "2019-09-02T07:20:32Z",
+      "side": 1,
+      "message": "@sam - does removing trailing slash from our catalog help?",
+      "range": {
+        "startLine": 190,
+        "startChar": 27,
+        "endLine": 190,
+        "endChar": 66
+      },
+      "revId": "77f80cb41f34e8e3e014127a2ec5733b4f1c7071",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": true
+    }
+  ]
+}
