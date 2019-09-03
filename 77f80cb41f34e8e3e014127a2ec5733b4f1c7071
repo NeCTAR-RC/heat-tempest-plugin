@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "43cfcd3e_985199f0",
+        "filename": "heat_tempest_plugin/tests/scenario/test_base_resources.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2019-09-03T00:03:40Z",
+      "side": 0,
+      "message": "Can remove this?",
+      "revId": "77f80cb41f34e8e3e014127a2ec5733b4f1c7071",
+      "serverId": "f182a8af-62ca-4ceb-ab81-14f8fec9c6c5",
+      "unresolved": true
+    }
+  ]
+}
