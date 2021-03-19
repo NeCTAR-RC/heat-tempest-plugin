@@ -31,7 +31,6 @@ from heat_tempest_plugin.common import remote_client
 from heat_tempest_plugin.services import clients
 from tempest.common import credentials_factory
 from tempest import config
-from tempest.lib import common
 
 LOG = logging.getLogger(__name__)
 _LOG_FORMAT = "%(levelname)8s [%(name)s] %(message)s"
@@ -177,15 +176,16 @@ class HeatIntegrationTest(testtools.testcase.WithAttributes,
             else 'v2'
 
         if config.CONF.auth.test_accounts_file:
-            accounts = common.preprov_creds.PreProvisionedCredentialProvider(
-                name='heat',
-                **credentials_factory.get_preprov_provider_params(
-                    identity_version))
+            cp = credentials_factory.get_credentials_provider('heat',
+                                                              identity_version)
+            self.credential_provider = cp
+            account = cp.get_primary_creds()
 
-            for opts in accounts.hash_dict['creds'].values():
-                for key, value in opts.items():
-                    self.conf._conf.set_override(
-                        key, value, group='heat_plugin')
+            attrs = ['password', 'project_domain_id', 'project_name',
+                     'user_domain_id', 'username']
+            for attr in attrs:
+                self.conf._conf.set_override(attr, account.get(attr),
+                                             group='heat_plugin')
 
             if identity_version == 'v3':
                 auth_url = config.CONF.identity.uri_v3.rstrip('/')
@@ -781,3 +781,7 @@ class HeatIntegrationTest(testtools.testcase.WithAttributes,
             metadata = self.client.resources.metadata(parent_stack, group_name)
             return not metadata.get('scaling_in_progress')
         return False
+
+    def tearDown(self):
+        super(HeatIntegrationTest, self).tearDown()
+        self.credential_provider.clear_creds()
